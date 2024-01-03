@@ -1,6 +1,8 @@
 package pattern
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /*
 	Реализовать паттерн «комманда».

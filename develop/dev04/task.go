@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"strings"
+)
+
 /*
 === Поиск анаграмм по словарю ===
 
@@ -19,6 +24,38 @@ package main
 Программа должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
 
-func main() {
+func anagramCheck(key, s string) bool {
+	if len([]rune(key)) != len([]rune(s)) {
+		return false
+	}
+	for _, v := range key {
+		if !strings.Contains(s, string(v)) {
+			return false
+		}
+	}
+	return true
+}
 
+func someshit(temp map[string][]string, s string) map[string][]string {
+	for k := range temp {
+		if anagramCheck(k, s) {
+			temp[k] = append(temp[k], s)
+			return temp
+		}
+	}
+	temp[s] = append(temp[s], s)
+	return temp
+}
+
+func ann(dict []string) {
+	temp := make(map[string][]string)
+	for _, v := range dict {
+		temp = someshit(temp, v)
+	}
+	fmt.Println(temp)
+}
+
+func main() {
+	dict := []string{"пятак", "пятка", "тяпка", "листок", "слиток", "столик"}
+	ann(dict)
 }
